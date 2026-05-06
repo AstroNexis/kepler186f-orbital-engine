@@ -21,6 +21,7 @@ orbit_solution_t orbit_analyze(const orbit_params_t *p)
     sol.tidal = tidal_compute(p->planet_mass, p->planet_radius,
                                sol.orbital.semi_major_axis,
                                p->stellar_mass,
+                               p->stellar_radius,
                                p->eccentricity,
                                p->tidal_Q,
                                p->tidal_rigidity,

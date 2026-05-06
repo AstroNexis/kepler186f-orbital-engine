@@ -24,7 +24,7 @@ typedef struct {
 /*
  * planet_mass_kg, planet_radius_m: planet parameters
  * semi_major_m: orbital distance
- * stellar_mass_kg: host star
+ * stellar_mass_kg, stellar_radius_m: host star
  * eccentricity: orbital eccentricity
  * Q_factor: tidal dissipation factor (Earth: ~100, rocky: 10-500)
  * rigidity: rigidity modulus Pa (Earth mantle: ~1e11)
@@ -33,8 +33,8 @@ typedef struct {
  */
 tidal_t tidal_compute(double planet_mass_kg, double planet_radius_m,
                       double semi_major_m, double stellar_mass_kg,
-                      double eccentricity, double Q_factor,
-                      double rigidity, double stellar_age_s,
-                      double orbital_period_s);
+                      double stellar_radius_m, double eccentricity,
+                      double Q_factor, double rigidity,
+                      double stellar_age_s, double orbital_period_s);
 
 #endif /* TIDAL_H */
