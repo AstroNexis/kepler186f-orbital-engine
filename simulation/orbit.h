@@ -8,7 +8,6 @@
 #include "../core/physics/tidal.h"
 #include "../core/physics/habitability.h"
 #include "../core/physics/stellar.h"
-#include "../core/physics/planck.h"
 
 typedef struct {
     orbital_elements_t orbital;
