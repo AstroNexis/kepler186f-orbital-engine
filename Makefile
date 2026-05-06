@@ -2,7 +2,7 @@ CC      = gcc
 CFLAGS  = -std=c17 -Wall -Wextra -Wpedantic -O2
 LDFLAGS = -lm
 
-TARGET  = exoplanet-orbit-engine
+TARGET  = kepler186f-orbital-engine
 
 SRCS =  main.c \
         core/physics/kepler.c \
