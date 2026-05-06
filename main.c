@@ -19,7 +19,14 @@ static double parse_double_arg(int argc, char **argv, const char *flag, double f
 {
     for (int i = 1; i < argc - 1; i++) {
         if (strcmp(argv[i], flag) == 0) {
-            return atof(argv[i + 1]);
+            char *end;
+            double val = strtod(argv[i + 1], &end);
+            if (end == argv[i + 1] || *end != '\0') {
+                fprintf(stderr, "error: '%s' is not a valid number for %s\n",
+                        argv[i + 1], flag);
+                exit(EXIT_FAILURE);
+            }
+            return val;
         }
     }
     return fallback;
