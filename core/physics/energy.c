@@ -26,13 +26,13 @@ energy_t energy_compute(double stellar_luminosity, double semi_major_axis,
     en.flux_apoapsis    = flux_at_radius(stellar_luminosity, ra);
 
     /*
-     * Flux variation metric: peak-to-peak relative to mean.
-     * For e=0 this is exactly 0. For Earth (e=0.0167) it is ~0.067.
+     * Flux variation: peak-to-peak normalized to orbit-averaged mean flux.
+     * Mean flux over one orbit: <F> = L / (4*pi*a^2*sqrt(1-e^2))
+     * Not the same as flux at a when e > 0.
+     * For e=0 the formula evaluates to 0.0 naturally; no branch needed.
      */
-    if (e > 0.0)
-        en.flux_variation = (en.flux_periapsis - en.flux_apoapsis) / en.stellar_flux_si;
-    else
-        en.flux_variation = 0.0;
+    double flux_mean = flux_at_radius(stellar_luminosity, a) / sqrt(1.0 - e * e);
+    en.flux_variation = (en.flux_periapsis - en.flux_apoapsis) / flux_mean;
 
     /* Cross-section pi*R^2 intercepts flux; (1-A) fraction absorbed */
     double cross_section = PI * planet_radius * planet_radius;
