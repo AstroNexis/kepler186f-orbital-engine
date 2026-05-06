@@ -73,14 +73,16 @@ spectral_t planck_analyze(double T)
     /*
      * Band integration with 1000 steps per band.
      * UV lower bound: 10 nm (soft x-ray cutoff for stellar atmosphere).
+     * IR is computed as the remainder so UV+VIS+IR = 1.0 exactly.
+     * Explicitly integrating to 1mm leaves ~0.03% unaccounted for K186
+     * because the tails (< 10nm, > 1mm) are not zero.
      */
-    double uv_flux  = planck_band_flux(T, 10e-9,       LAMBDA_UV_MAX,  1000);
+    double uv_flux  = planck_band_flux(T, 10e-9,        LAMBDA_UV_MAX,  1000);
     double vis_flux = planck_band_flux(T, LAMBDA_UV_MAX, LAMBDA_VIS_MAX, 1000);
-    double ir_flux  = planck_band_flux(T, LAMBDA_IR_MIN, LAMBDA_IR_MAX,  2000);
 
     sp.uv_fraction      = uv_flux  / sp.total_power;
     sp.visible_fraction = vis_flux / sp.total_power;
-    sp.ir_fraction      = ir_flux  / sp.total_power;
+    sp.ir_fraction      = 1.0 - sp.uv_fraction - sp.visible_fraction;
 
     /* Classify dominant emission band */
     sp.peak_wavelength_band = sp.peak_wavelength_nm;

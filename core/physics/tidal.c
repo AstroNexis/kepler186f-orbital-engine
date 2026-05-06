@@ -75,9 +75,9 @@ static double roche_limit(double stellar_mass, double stellar_radius,
 
 tidal_t tidal_compute(double planet_mass, double planet_radius,
                       double semi_major, double stellar_mass,
-                      double eccentricity, double Q_factor,
-                      double rigidity, double stellar_age_s,
-                      double orbital_period_s)
+                      double stellar_radius, double eccentricity,
+                      double Q_factor, double rigidity,
+                      double stellar_age_s, double orbital_period_s)
 {
     tidal_t td;
 
@@ -100,8 +100,7 @@ tidal_t tidal_compute(double planet_mass, double planet_radius,
 
     td.sync_rotation_period_s = orbital_period_s;
 
-    /* Use solar radius as proxy for K186 (0.472 R_sun baked into constants) */
-    td.roche_limit = roche_limit(stellar_mass, 0.472 * R_SUN,
+    td.roche_limit = roche_limit(stellar_mass, stellar_radius,
                                   planet_mass, planet_radius);
 
     return td;

@@ -65,7 +65,9 @@ thermal_t temperature_compute(double stellar_flux_si, double albedo,
     th.t_surface_1layer        = t_surface_1layer(th.t_effective_1layer, emissivity);
 
     th.t_substellar  = t_substellar(stellar_flux_si, albedo);
-    th.t_antistellar = 0.0;     /* no internal heat source; effectively 0 K without redistribution */
+    /* Night side with no heat redistribution and no internal source.
+     * Physical floor is the CMB (~2.7 K), not absolute zero. */
+    th.t_antistellar = 2.7;
     th.t_terminator  = t_terminator(stellar_flux_si, albedo);
 
     return th;

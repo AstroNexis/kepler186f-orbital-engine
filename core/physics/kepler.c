@@ -54,11 +54,23 @@ double kepler_eccentric_anomaly(double mean_anomaly, double eccentricity)
     /* Danby initial guess — better than E=M for moderate eccentricity */
     double E = M + e * sin(M) * (1.0 + e * cos(M));
 
+    int converged = 0;
     for (int i = 0; i < KEPLER_NR_MAX_ITER; i++) {
         double dE = (M - E + e * sin(E)) / (1.0 - e * cos(E));
         E += dE;
-        if (fabs(dE) < KEPLER_NR_TOL)
+        if (fabs(dE) < KEPLER_NR_TOL) {
+            converged = 1;
             break;
+        }
+    }
+
+    if (!converged) {
+        /* Residual still above tolerance — return NaN so callers can detect. */
+        fprintf(stderr,
+                "kepler_eccentric_anomaly: NR did not converge "
+                "(M=%.6f, e=%.6f, residual=%.2e)\n",
+                M, e, fabs(M - E + e * sin(E)));
+        return __builtin_nan("");
     }
 
     return E;
