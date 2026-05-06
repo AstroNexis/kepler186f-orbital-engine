@@ -62,7 +62,8 @@ void report_print_thermal(const orbit_solution_t *sol)
            th->t_substellar, th->t_substellar - 273.15);
     printf("  Terminator temp          : %.2f K  (%.2f C)\n",
            th->t_terminator, th->t_terminator - 273.15);
-    printf("  Anti-stellar point temp  : ~0 K    (no redistribution)\n");
+    printf("  Anti-stellar point temp  : %.2f K  (CMB floor, no redistribution)\n",
+           th->t_antistellar);
 }
 
 void report_print_tidal(const orbit_solution_t *sol)
