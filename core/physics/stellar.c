@@ -43,7 +43,7 @@ static spectral_class_t classify_spectral(double teff)
     if (teff >=  7500.0) return SPECTRAL_A;
     if (teff >=  6000.0) return SPECTRAL_F;
     if (teff >=  5200.0) return SPECTRAL_G;
-    if (teff >=  3700.0) return SPECTRAL_K;
+    if (teff >=  3900.0) return SPECTRAL_K;
     if (teff >=  2400.0) return SPECTRAL_M;
     return SPECTRAL_UNKNOWN;
 }
