@@ -92,9 +92,9 @@ The greenhouse model is not coupled to atmospheric composition. It applies
 a fixed temperature delta, which is useful for sensitivity analysis but not
 a substitute for a proper radiative-convective model.
 
-Spectral classification of Kepler-186 is boundary-dependent. The code
-assigns K-type at 3788 K using a hard cutoff at 3700 K. Many published
-sources classify it as M1V. The boundary is a smooth transition in practice.
+The K/M spectral boundary is set at 3900 K, following the Pecaut and Mamajek
+(2013) dwarf star table. Kepler-186 (T_eff = 3788 K) is therefore classified
+M, consistent with the published M1V type (Quintana et al. 2014).
 
 
 REFERENCES
