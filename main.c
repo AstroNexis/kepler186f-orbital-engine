@@ -1,3 +1,4 @@
+#include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -21,7 +22,7 @@ static double parse_double_arg(int argc, char **argv, const char *flag, double f
         if (strcmp(argv[i], flag) == 0) {
             char *end;
             double val = strtod(argv[i + 1], &end);
-            if (end == argv[i + 1] || *end != '\0') {
+            if (end == argv[i + 1] || *end != '\0' || !isfinite(val)) {
                 fprintf(stderr, "error: '%s' is not a valid number for %s\n",
                         argv[i + 1], flag);
                 exit(EXIT_FAILURE);
@@ -55,6 +56,10 @@ int main(int argc, char **argv)
     }
     if (emissivity < 0.0 || emissivity > 1.0) {
         fprintf(stderr, "error: emissivity must be in [0.0, 1.0]\n");
+        return EXIT_FAILURE;
+    }
+    if (tidal_q <= 0.0) {
+        fprintf(stderr, "error: tidal-q must be greater than 0\n");
         return EXIT_FAILURE;
     }
 
